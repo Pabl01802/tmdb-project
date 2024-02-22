@@ -1,6 +1,6 @@
 import React from 'react';
 import { IMovie } from '@/interfaces/interfaces'
-import { MovieCoursel } from "@/components/MovieCarousel/MovieCoursel";
+import { MovieCarousel } from "@/components/MovieCarousel/MovieCarousel";
 import { ICarouselProps } from '@/interfaces/interfaces'
 
 export const Carousel = ({ carouselTitle, data }:ICarouselProps) => {
@@ -14,7 +14,7 @@ export const Carousel = ({ carouselTitle, data }:ICarouselProps) => {
       >
         {carouselTitle}
       </h3>
-      <MovieCoursel data={data as IMovie[]} />
+      <MovieCarousel data={data as IMovie[]} />
     </section>
   );
 };

@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 
 export interface IMovieCardProps {
   info: IMovie,
   last?: boolean,
+  setElement: Dispatch<SetStateAction<HTMLDivElement>> | undefined
 }
 
 export interface IMovie {
@@ -21,7 +22,7 @@ export interface IMovie {
   vote_count: number
 }
 
-export interface IMovieCourselProps {
+export interface IMovieCarouselProps {
   data: IMovie[]
 }
 

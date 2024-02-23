@@ -80,7 +80,10 @@ export const MovieCarousel = ({ data }:IMovieCarouselProps) => {
     if(direction === 'left' || rightArrowRef.current!.style.display === 'none'){
       gsap.to(sliderRef.current, {
         x: scrollPosition - scrollValue > 0 ? scrollValue - scrollPosition : 0,
-        duration: 1
+        duration: 1,
+        onUpdate: () => {
+          ScrollTrigger.isInViewport(lastElement, 1, true) && (rightArrowRef.current!.style.display = 'grid')
+        }
       })
       setScrollPosition(prev => prev - scrollValue)
     }
@@ -101,14 +104,14 @@ export const MovieCarousel = ({ data }:IMovieCarouselProps) => {
         onClick={() => handleSlider('left')}
         className={`
             absolute
-            left-10
+            left-0
             w-[150px]
             h-[500px]
             mt-[10px]
             grid
             place-items-center
             bg-arrow-background
-            bg-gradient-to-r from-[20%] from-primary
+            bg-gradient-to-r from-[30%] from-primary via-[70%] via-black
             z-20`}
       >
         <SliderArrow className='rotate-180 fill-[#969696]'/>
@@ -133,13 +136,13 @@ export const MovieCarousel = ({ data }:IMovieCarouselProps) => {
         className={`
             absolute
             top-[50px]
-            right-10
+            right-0
             w-[150px]
             h-[500px]
             grid
             place-items-center
             bg-arrow-background
-            bg-gradient-to-l from-[20%] from-primary
+            bg-gradient-to-l from-[40%] from-primary
           `}
       >
         <SliderArrow className='fill-[#969696]'/>

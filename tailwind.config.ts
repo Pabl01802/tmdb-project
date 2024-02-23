@@ -18,7 +18,8 @@ const config: Config = {
       'primary': '#18191C',
       'secondary': '#1D1E22',
       'red': '#FE0101',
-      // 'arrow-background': 'rgba(0, 0, 0, .5)',
+      'black': 'rgba(24, 25, 28, .9)',
+      'black2': 'rgba(24, 25, 28, .1)',
       'arrow-background': 'rgba(0, 0, 0, 0)',
     }
   },

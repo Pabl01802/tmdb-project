@@ -2,12 +2,12 @@ import React, { useRef, useEffect } from 'react';
 import { IMovieCardProps } from "@/interfaces/interfaces";
 import { Star } from '@/images/star'
 
-export const MovieCard = ({info, last, setElement}:IMovieCardProps) => {
+export const MovieCard = ({info, last, setLastCard}:IMovieCardProps) => {
 
   const lastElementRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    lastElementRef && setElement && setElement(lastElementRef.current!)
+    lastElementRef && setLastCard && setLastCard(lastElementRef.current!)
   }, [])
 
   return(

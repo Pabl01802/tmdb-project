@@ -2,8 +2,8 @@ import React, { Dispatch, SetStateAction } from 'react'
 
 export interface IMovieCardProps {
   info: IMovie,
-  last?: boolean,
-  setElement: Dispatch<SetStateAction<HTMLDivElement>> | undefined
+  last: boolean,
+  setLastCard: Dispatch<SetStateAction<HTMLDivElement>> | undefined
 }
 
 export interface IMovie {

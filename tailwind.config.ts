@@ -21,6 +21,27 @@ const config: Config = {
       'black': 'rgba(24, 25, 28, .9)',
       'black2': 'rgba(24, 25, 28, .1)',
       'arrow-background': 'rgba(0, 0, 0, 0)',
+    },
+    screens: {
+      'xs': {
+        'max': '768px'
+      },
+      'sm': {
+        'min': '769px',
+        'max': '992px'
+      },
+      'md': {
+        'min': '993px',
+        'max': '1024px'
+      },
+      'lg': {
+        'min': '1025px',
+        'max': '1200px'
+      },
+      'small': {
+        'min': '769px',
+        'max': '1200px'
+      }
     }
   },
   plugins: [],

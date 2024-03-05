@@ -34,3 +34,8 @@ export interface ICarouselProps {
 export interface IRandomMovieProps {
   data: IMovie[]
 }
+
+export interface IGenre {
+  id: number,
+  name: string
+}

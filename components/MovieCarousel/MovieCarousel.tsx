@@ -11,6 +11,7 @@ export const MovieCarousel = ({ data }:IMovieCarouselProps) => {
 
   const [scrollPosition, setScrollPosition] = useState<number>(0)
   const [lastElement, setLastElement] = useState<HTMLDivElement>(undefined!)
+  const [scrollValue, setScrollValue] = useState<number>(560)
 
   const sliderRef = useRef<HTMLDivElement>(null)
   const rightArrowRef = useRef<HTMLDivElement>(null)
@@ -19,23 +20,37 @@ export const MovieCarousel = ({ data }:IMovieCarouselProps) => {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
     window.addEventListener('resize', handleArrowsWindowResize);
+    if(window.innerWidth < 1200) setScrollValue(180 * 1.3)
     return () => {
       window.removeEventListener('resize', handleArrowsWindowResize);
     };
   }, []);
 
+  useEffect(() => {
+    window.addEventListener('resize', handleScrollWindowResize)
+    return () => {
+      window.removeEventListener('resize', handleScrollWindowResize);
+    };
+  }, [lastElement]);
+
   const handleArrowsWindowResize = () => {
     const maxScroll = ScrollTrigger.maxScroll(sliderRef.current!, true)
     if(scrollPosition !== maxScroll){
-      rightArrowRef.current!.style.display = 'flex'
+      rightArrowRef.current!.style.display = 'grid'
     }
     if(scrollPosition === maxScroll && rightArrowRef.current!.style.display !== 'none'){
       rightArrowRef.current!.style.display = 'none'
     }
-    if(maxScroll < window.innerWidth){
+    if(maxScroll <= window.innerWidth){
       rightArrowRef.current!.style.display = 'none'
     }else{
-      rightArrowRef.current!.style.display = 'flex'
+      rightArrowRef.current!.style.display = 'grid'
+    }
+  }
+
+  const handleScrollWindowResize = () => {
+    if(window.innerWidth < 1200){
+      setScrollValue(lastElement.offsetWidth * 1.3)
     }
   }
 
@@ -44,7 +59,7 @@ export const MovieCarousel = ({ data }:IMovieCarouselProps) => {
       ScrollTrigger.isInViewport(lastElement, 1, true) && (rightArrowRef.current!.style.display = 'none')
       window.addEventListener('resize', () => {
         const isLastInViewport:boolean = ScrollTrigger.isInViewport(lastElement, 1, true)
-        isLastInViewport ? (rightArrowRef.current!.style.display = 'none') : (rightArrowRef.current!.style.display = 'flex')
+        isLastInViewport ? (rightArrowRef.current!.style.display = 'none') : (rightArrowRef.current!.style.display = 'grid')
       })
     }
   }, [lastElement]);
@@ -54,12 +69,12 @@ export const MovieCarousel = ({ data }:IMovieCarouselProps) => {
     if(maxScroll > 0 && scrollPosition === maxScroll){
       rightArrowRef.current!.style.display = 'none'
     }else{
-      rightArrowRef.current!.style.display = 'flex'
+      rightArrowRef.current!.style.display = 'grid'
     }
     if(scrollPosition <= 0){
       leftArrowRef.current!.style.display = 'none'
     }else{
-      leftArrowRef.current!.style.display = 'flex'
+      leftArrowRef.current!.style.display = 'grid'
     }
     if(lastElement) {
       ScrollTrigger.isInViewport(lastElement, 1, true) && (rightArrowRef.current!.style.display = 'none')
@@ -67,7 +82,7 @@ export const MovieCarousel = ({ data }:IMovieCarouselProps) => {
   }, [scrollPosition]);
 
   const handleSlider = (direction:string) => {
-    let scrollValue:number = 550
+    // let scrollValue:number = 550
     const maxScroll = ScrollTrigger.maxScroll(sliderRef.current!, true)
     if(direction === 'right'){
       gsap.to(sliderRef.current, {
@@ -82,7 +97,9 @@ export const MovieCarousel = ({ data }:IMovieCarouselProps) => {
         x: scrollPosition - scrollValue > 0 ? scrollValue - scrollPosition : 0,
         duration: 1,
         onUpdate: () => {
-          ScrollTrigger.isInViewport(lastElement, 1, true) && (rightArrowRef.current!.style.display = 'grid')
+          ScrollTrigger.isInViewport(lastElement, 1, true)
+            ? (rightArrowRef.current!.style.display = 'none')
+            : (rightArrowRef.current!.style.display = 'grid')
         }
       })
       setScrollPosition(prev => prev - scrollValue)
@@ -97,6 +114,10 @@ export const MovieCarousel = ({ data }:IMovieCarouselProps) => {
           p-10
           relative
           overflow-hidden
+
+          small:h-[400px]
+
+          xs:h-[400px]
         '
     >
       <div
@@ -107,12 +128,19 @@ export const MovieCarousel = ({ data }:IMovieCarouselProps) => {
             left-0
             w-[150px]
             h-[500px]
-            mt-[10px]
             grid
             place-items-center
             bg-arrow-background
-            bg-gradient-to-r from-[30%] from-primary via-[70%] via-black
-            z-20`}
+            bg-gradient-to-r from-[40%] from-primary
+            z-20
+            
+            small:h-[366px]
+            small:top-[25px]
+            
+            xs:h-[366px]
+            xs:top-[25px]
+            xs:w-[80px]
+            `}
       >
         <SliderArrow className='rotate-180 fill-[#969696]'/>
       </div>
@@ -122,7 +150,6 @@ export const MovieCarousel = ({ data }:IMovieCarouselProps) => {
             flex
             gap-10
             py-[10px]
-            h-[500px]
             scroll-smooth
           '
       >
@@ -135,7 +162,7 @@ export const MovieCarousel = ({ data }:IMovieCarouselProps) => {
         onClick={() => handleSlider('right')}
         className={`
             absolute
-            top-[50px]
+            top-[40px]
             right-0
             w-[150px]
             h-[500px]
@@ -143,6 +170,13 @@ export const MovieCarousel = ({ data }:IMovieCarouselProps) => {
             place-items-center
             bg-arrow-background
             bg-gradient-to-l from-[40%] from-primary
+            
+            small:h-[366px]
+            small:top-[30px]
+            
+            xs:h-[366px]
+            xs:top-[30px]
+            xs:w-[80px]
           `}
       >
         <SliderArrow className='fill-[#969696]'/>

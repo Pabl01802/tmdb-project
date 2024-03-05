@@ -34,6 +34,10 @@ const Page = () => {
       .catch(err => console.log(err))
   }, []);
 
+  useEffect(() => {
+    console.log(trending)
+  }, [trending])
+
   return (
     <main
       className='
@@ -42,7 +46,7 @@ const Page = () => {
         bg-primary
     '>
       <RandomMovie data={trending as IMovie[]} />
-      <section className='bg-primary p-[15px]'>
+      <section className='bg-primary p-[15px] mt-[80px] small:mt-[20px] xs:mt-[20px]'>
         <Carousel carouselTitle={'Trending Movies'} data={trending as IMovie[]} />
         <Carousel carouselTitle={'Now playing'} data={playing as IMovie[]} />
         <Carousel carouselTitle={'Best Of All Time'} data={topRated as IMovie[]} />

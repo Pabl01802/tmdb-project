@@ -1,3 +1,4 @@
+### ❗❗PROJECT STILL IN DEVELOPMENT❗❗
 # TMDB Project 🎥
 This project allows you to check out some movies. You can see their title, description or even a rating.
 
